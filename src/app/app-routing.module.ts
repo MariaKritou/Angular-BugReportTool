@@ -1,7 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+import { BugListComponent } from './components/bug-list/bug-list.component';
+import { BugCreateComponent } from './components/bug-create/bug-create.component';
+
+const routes: Routes = [
+
+  { path: '', redirectTo: 'list', pathMatch: 'full' },
+  { path: 'list', component: BugListComponent },
+  { path: 'create', component: BugCreateComponent }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+
+  //The url for the httprequests
+  baseURL: 'https://bug-report-system-server.herokuapp.com/'
 };
 
 /*

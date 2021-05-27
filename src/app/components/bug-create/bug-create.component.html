@@ -1,0 +1,50 @@
+<div style="width: 500px; margin: auto;">
+    <div class="submit-form">
+
+        <form (ngSubmit)="onSubmit()" novalidate [formGroup]="bugFormGroup">
+
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" formControlName="title" id="title" name="title" />
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" id="description" formControlName="description"
+                    name="description"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="priority">Priority</label>
+                <select type="select" [value]="" class="form-control" formControlName="priority" id="priority"
+                    name="priority">
+                    <option value="1">Minor</option>
+                    <option value="2">Major</option>
+                    <option value="3">Critical</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="reporter">Reporter</label>
+                <select type="select" [value]="" class="form-control" formControlName="reporter" id="reporter"
+                    name="reporter">
+                    <option value="1">QA</option>
+                    <option value="2">PO</option>
+                    <option value="3">DEV</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select type="select" [value]="" class="form-control" formControlName="status" id="status"
+                    name="status">
+                    <option value="1">Testing</option>
+                    <option value="2">Done</option>
+                    <option value="3">Rejected</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-success">Create</button>
+        </form>
+    </div>
+</div>

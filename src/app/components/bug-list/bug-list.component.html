@@ -1,0 +1,154 @@
+<div class="container">
+    <nav class="navbar">
+        <input type="text" class="form-control" name="filter" [(ngModel)]="filter" (ngModelChange)=search()
+            placeholder="Search by Title">
+    </nav>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th (click)="sort('title')">Title</th>
+                <th (click)="sort('priority')">Priority</th>
+                <th (click)="sort('reporter')">Reporter</th>
+                <th (click)="sort('status')">Status</th>
+                <th (click)="sort('date')">Creation Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let bug of bugsList | orderBy: key: reverse">
+                <td><span>{{bug.title}}</span></td>
+                <td><span>{{bug.priority}}</span></td>
+                <td><span>{{bug.reporter}}</span></td>
+                <td><span>{{bug.status}}</span></td>
+                <td><span>{{bug.createdAt |date}}</span></td>
+                <td>
+                    <button class="btn btn-sm btn-success" (click)="openEdit(contentEdit, bug)">Edit</button>
+                    <button class="btn btn-sm btn-danger" (click)="deleteBug(bug)">Delete</button>
+                    <button class="btn btn-sm btn-info" (click)="openComment(contentComment, bug)">Comments</button>
+                </td>
+
+
+                <ng-template #contentEdit let-modal>
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modal-basic-title">New Bug</h4>
+                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="bugFormGroupEdit">
+
+                            <div class="form-group">
+                                <label for="title">title</label>
+                                <input type="text" class="form-control" formControlName="title" name="title" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <textarea class="form-control" formControlName="description"
+                                    name="description"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="priority">Priority</label>
+                                <select type="select" [value]="" class="form-control" formControlName="priority"
+                                    name="priority">
+                                    <option value="1">Minor</option>
+                                    <option value="2">Major</option>
+                                    <option value="3">Critical</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="reporter">Reporter</label>
+                                <select type="select" [value]="" class="form-control" formControlName="reporter"
+                                    name="reporter">
+                                    <option value="1">QA</option>
+                                    <option value="2">PO</option>
+                                    <option value="3">DEV</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="status">Status</label>
+                                <select type="select" [value]="" class="form-control" formControlName="status"
+                                    name="status">
+                                    <option value="1">Testing</option>
+                                    <option value="2">Done</option>
+                                    <option value="3">Rejected</option>
+                                </select>
+                            </div>
+
+                            <div class="border text-center"> <button data-dismiss="modal" class="btn btn-info"
+                                    (click)="editBug(bug)">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-dark"
+                            (click)="modal.close('Save click')">Close</button>
+                    </div>
+                </ng-template>
+
+
+
+                <ng-template #contentComment let-modal>
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modal-basic-title">Comments List</h4>
+                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <ul class="list-group">
+                            <div *ngFor="let com of bug.comments">
+
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    {{com.description}}
+                                    <span class="badge bg-primary rounded-pill">{{com.reporter}}</span>
+                                </li>
+
+                            </div>
+                        </ul>
+
+                        <!--    <form [formGroup]="bugFormGroupComment">
+
+                            <div class="form-group">
+                                <label for="reporter">Reporter</label>
+                                <select type="select" [value]="" class="form-control" formControlName="reporter"
+                                    name="reporter">
+                                    <option value="1">QA</option>
+                                    <option value="2">PO</option>
+                                    <option value="3">DEV</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <textarea class="form-control" formControlName="description"
+                                    name="description"></textarea>
+                            </div>
+
+                            <div class="border text-center"> <button data-dismiss="modal" class="btn btn-info"
+                                    (click)="addComment(bug.id)">Save Changes</button>
+                            </div>
+                        </form> -->
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-dark"
+                            (click)="modal.close('Save click')">Close</button>
+                    </div>
+                </ng-template>
+
+
+            </tr>
+        </tbody>
+
+        <button id="prevbtn" class="btn btn-sm btn-success" (click)="prevPage()">Previous</button>
+        <button id="nextbtn" class="btn btn-sm btn-success" (click)="nextPage()">Next</button>
+
+    </table>
+</div>
